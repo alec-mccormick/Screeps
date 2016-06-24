@@ -29,7 +29,7 @@ export namespace GameManager {
     export function loop() {
         // Loop code starts here
         // This is executed every tick
-        console.log("SUIT UP my creeps!");
+        // console.log("SUIT UP my creeps!");
 
         // Example how to use loop function.
         // Let's assume we have a creep, who is called "Argos". We can do something like this:
