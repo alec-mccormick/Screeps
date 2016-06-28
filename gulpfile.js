@@ -23,28 +23,30 @@ gulp.task('compile', function () {
 });
 
 gulp.task('upload-sim', ['compile'], function () {
-    // console.log("Starting upload");
-    // var email = secrets.email,
-    //     password = secrets.password,
-    //     data = {
-    //         branch: 'default',
-    //         modules: { main: fs.readFileSync('./dist/main.js', { encoding: "utf8" }) }
-    //     };
-    // var req = https.request({
-    //     hostname: 'screeps.com',
-    //     port: 443,
-    //     path: '/api/user/code',
-    //     method: 'POST',
-    //     auth: email + ':' + password,
-    //     headers: {
-    //         'Content-Type': 'application/json; charset=utf-8'
-    //     }
-    // }, function(res) {
-    //     console.log("Response: " + res.statusCode);
-    // });
-    //
-    // req.write(JSON.stringify(data));
-    // req.end();
+    console.log("Starting upload");
+    var email = secrets.email,
+        password = secrets.password,
+        data = {
+            branch: 'default',
+            modules: {
+                main: fs.readFileSync('./dist/main.js', { encoding: "utf8" })
+            }
+        };
+    var req = https.request({
+        hostname: 'screeps.com',
+        port: 443,
+        path: '/api/user/code',
+        method: 'POST',
+        auth: email + ':' + password,
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+    }, function(res) {
+        console.log("Response: " + res.statusCode);
+    });
+
+    req.write(JSON.stringify(data));
+    req.end();
 });
 
 gulp.task('watch', function() {
@@ -67,7 +69,6 @@ gulp.task('references', function() {
     files.unshift('../typings/tsd.d.ts');
     files.unshift('../node_modules/screeps-typescript-declarations/dist/screeps.d.ts');
 
-    // console.log(files);
 
 
     var references = files.map(function(file) {
