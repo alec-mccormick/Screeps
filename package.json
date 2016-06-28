@@ -11,7 +11,9 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "gulp": "~3.9.0",
-    "tsproject": "~1.2.0-rc.6",
+    "gulp-flatten": "^0.3.0",
+    "gulp-typescript": "^2.13.6",
+    "lodash": "^4.13.1",
     "tsd": "~0.6.5"
   },
   "dependencies": {

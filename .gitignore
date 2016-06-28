@@ -1,0 +1,6 @@
+secrets.js
+.idea/Screeps.iml
+.idea/modules.xml
+.idea/workspace.xml
+dist/
+node_modules/

@@ -51,7 +51,7 @@ $ npm install
 ### Configuring
 
 ```
-Rename secrets.default.js file to secrets.js
+Rename secrets.js file to secrets.js
 Fill "username" and "password" properties in just renamed secrets.js file with your Screep's username and email. 
 
 **NEVER COMMIT THIS FILE TO ANY VERSION CONTROL** 
