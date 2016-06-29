@@ -69,8 +69,6 @@ gulp.task('references', function() {
     files = _.sortBy(files, function(file) {
         return file.indexOf('main.ts');
     });
-    
-
 
 
     files.unshift('../typings/tsd.d.ts');

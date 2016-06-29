@@ -21,6 +21,14 @@ namespace Interfaces {
     }
 
     export interface IAction {
-        
+
+        run(item: any): void;
+    }
+
+    export interface ICreepAction extends IAction {
+        body: string[];
+        role: string;
+
+        run(creep: Creep): void;
     }
 }

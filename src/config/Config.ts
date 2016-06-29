@@ -7,4 +7,6 @@
 namespace Config {
 
     export var Verbose: boolean = true;
+
+    export var Errors = {};
 }
