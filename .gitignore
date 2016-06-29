@@ -1,6 +1,5 @@
 secrets.js
-.idea/Screeps.iml
-.idea/modules.xml
-.idea/workspace.xml
+.idea/*
 dist/
 node_modules/
+.DS_Store
