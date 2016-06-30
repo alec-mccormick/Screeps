@@ -1,13 +1,9 @@
 
 namespace Interfaces {
 
-    export interface ICreepsRoleMap {
-        [role: string]: Creep[]
-    }
-
-    export interface ICreepsRoomMap {
-        [roomName: string]: ICreepsRoleMap
-    }
+    // ======================================================= //
+    /* ********************* Components ********************** */
+    // ======================================================= //
 
     export interface IController {
         loop(): void;
@@ -19,17 +15,16 @@ namespace Interfaces {
     }
 
     export interface IAction {
-        run(item: any): void;
-    }
-
-    export interface ICreepAction extends IAction {
         body: string[];
         role: string;
 
-        run(creep: Creep): void;
-
-        // errorHandlers: _.Dictionary<(c: Creep, err: number, o: IOrder) => void>;
+        run(item: any): void;
     }
+
+
+    // ======================================================= //
+    /* *********************** Memory ************************ */
+    // ======================================================= //
 
     export interface IOrder {
         action: string;

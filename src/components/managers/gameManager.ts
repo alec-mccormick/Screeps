@@ -11,7 +11,7 @@ namespace Managers {
 
         export var roomControllers: Controllers.RoomController[];
         export var services: Interfaces.IService[];
-        export var creepActions: _.Dictionary<Interfaces.ICreepAction>;
+        export var creepActions: _.Dictionary<Interfaces.IAction>;
 
         function indexBy<T>(arr: T[], fnc): _.Dictionary<T> {
             var obj: _.Dictionary<T> = {};
@@ -22,9 +22,9 @@ namespace Managers {
         function initVariables() {
             services = _.values<Interfaces.IService>(Services);
 
-            var temp = _.filter<Interfaces.ICreepAction>(<any>Actions, a => _.isString(a.role));
+            var temp = _.filter<Interfaces.IAction>(<any>Actions, a => _.isString(a.role));
 
-            creepActions = indexBy<Interfaces.ICreepAction>(temp, a => a.role);
+            creepActions = indexBy<Interfaces.IAction>(temp, a => a.role);
         }
 
         export function globalBootstrap() {
