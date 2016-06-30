@@ -442,7 +442,7 @@ interface Creep {
     /**
      * A shorthand to Memory.creeps[creep.name]. You can use it for quick access the creep’s specific memory data object.
      */
-    memory: any;
+    memory: Interfaces.ICreepMemory;
     /**
      * Whether it is your creep or foe.
      */
@@ -639,7 +639,7 @@ interface Flag {
     /**
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
-    memory: any;
+    memory: Interfaces.IFlagMemory;
     /**
      * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
      */
@@ -970,16 +970,16 @@ interface Transaction {
 }
 interface Memory {
     creeps: {
-        [name: string]: any;
+        [name: string]: Interfaces.ICreepMemory;
     };
     flags: {
-        [name: string]: any;
+        [name: string]: Interfaces.IFlagMemory;
     };
     rooms: {
-        [name: string]: any;
+        [name: string]: Interfaces.IRoomMemory;
     };
     spawns: {
-        [name: string]: any;
+        [name: string]: Interfaces.ISpawnMemory;
     };
     sources: {
         [name: string]: Interfaces.ISourceMemory;
@@ -1320,6 +1320,7 @@ interface RoomPosition {
     getSurroundingWalkablePositions(): RoomPosition[];
     getSurroundingPositions(): RoomPosition[];
     isWalkable(): boolean;
+    toKey(): string;
 }
 /**
  * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
@@ -1493,6 +1494,8 @@ interface Room {
      * @returns A path array.
      */
     deserializePath(path: string): PathStep[];
+
+    subPath(path: string, start: number, end?: number): string;
 }
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
@@ -1526,6 +1529,8 @@ interface Source {
      * The remaining time after which the source will be refilled.
      */
     ticksToRegeneration: number;
+
+    memory: Interfaces.ISourceMemory;
 }
 /**
  * Spawns are your colony centers. You can transfer energy into it and create new creeps using createCreep() method.
@@ -1558,7 +1563,7 @@ interface Spawn {
     /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
-    memory: any;
+    memory: Interfaces.ISpawnMemory;
     /**
      * Whether it is your spawn or foe.
      */

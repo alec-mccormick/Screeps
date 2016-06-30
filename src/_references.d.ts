@@ -1,4 +1,3 @@
-/// <reference path="../node_modules/screeps-typescript-declarations/dist/screeps.d.ts" />
 /// <reference path="../typings/tsd.d.ts" />
 /// <reference path="components/actions/builder.ts" />
 /// <reference path="components/actions/harvester.ts" />

@@ -46,4 +46,10 @@ namespace Config {
             console.log(JSON.stringify(obj));
         }
     }
+
+
+    export enum ErrorCodes {
+        ERR_ACTION_DOES_NOT_EXIST = -99,
+        END_OF_PATH = 1
+    }
 }

@@ -10,7 +10,7 @@ var path = require('path');
 var secrets = require('./secrets.js');
 
 gulp.task('compile', function () {
-    return gulp.src(["./src/**/*.ts", "./typings/**/*.ts", "node_modules/screeps-typescript-declarations/dist/screeps.d.ts"])
+    return gulp.src(["./src/**/*.ts", "./typings/**/*.ts"])
         .pipe(ts({
             target: 'ES5',
             module: 'commonjs',
@@ -48,7 +48,7 @@ gulp.task('upload-sim', ['compile'], function () {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('./src/**/*.ts', ['build']);
+    gulp.watch(['./src/**/*.ts', "./typings/**/*.ts"], ['build']);
 });
 
 gulp.task('build', ['references', 'upload-sim']);
@@ -72,7 +72,6 @@ gulp.task('references', function() {
 
 
     files.unshift('../typings/tsd.d.ts');
-    files.unshift('../node_modules/screeps-typescript-declarations/dist/screeps.d.ts');
 
 
 

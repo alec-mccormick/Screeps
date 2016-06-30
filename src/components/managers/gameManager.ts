@@ -45,6 +45,7 @@ namespace Managers {
 
         export function loop() {
             PathFinder.use(true);
+            console.log('loop');
 
             // --- Update services
             services.forEach(service => service.update());
@@ -59,11 +60,26 @@ namespace Managers {
         export function createHarvester() {
             var controller = this.roomControllers[0];
             var spawnController = controller.spawnControllers[0];
+            
+
+            var sources = Services.SourceService.getSourcesInRoom(controller.id);
+            var firstSource = sources[0];
+
+            var firstHarvestPosition = firstSource.memory.harvestPositions[0];
+
+            var path = spawnController.getSourcePath(firstHarvestPosition);
+
 
             spawnController.spawn.createCreep(spawnController.getBody('harvester'), null, {
                 role: 'harvester',
-                orderQueue: []
-            })
+                orderQueue: [
+                    {
+                        action: 'moveBySerializedPath',
+                        args: [path]
+                    }
+                ],
+                activeOrder: null
+            });
         }
 
         export function generateSourcePaths() {

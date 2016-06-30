@@ -19,6 +19,10 @@ namespace Interfaces {
         role: string;
 
         run(item: any): void;
+
+        resultHandlers: {
+            [action: string]: (creep: Creep, err: number) => void;
+        }
     }
 
 
@@ -26,11 +30,24 @@ namespace Interfaces {
     /* *********************** Memory ************************ */
     // ======================================================= //
 
+    // --- Creep Memory
+    export interface ICreepMemory {
+        role: string;
+        activeOrder: IOrder;
+        orderQueue: IOrder[];
+    }
+
     export interface IOrder {
         action: string;
         targetId?: string;
-        args: any[];
-        moveTo: boolean;
+        args?: any[];
+        moveTo?: boolean;
+    }
+
+    // --- Source Memory
+    export interface ISourceMemory {
+        numHaulers: number;
+        harvestPositions: IStoredRoomPosition[];
     }
 
     export interface IStoredRoomPosition {
@@ -39,15 +56,24 @@ namespace Interfaces {
         roomName: string;
     }
 
-    export interface ISourceMemory {
-        numHaulers: number;
-        harvestPositions: IStoredRoomPosition[];
-    }
-
-    // --- Pass roomId and x,y pos to get id of the assigned harvester
-    export interface IHarvestAssignments {
-        [roomId: string]: {
-            [xy: string]: string
+    // --- Spawn Memory
+    export interface ISpawnMemory {
+        sourcePaths: {
+            [xy: string]: string;
         }
     }
+
+
+    // --- Flag Memory
+    export interface IFlagMemory {
+        
+    }
+
+    // --- Room Memory
+    export interface IRoomMemory {
+        harvestAssignments: {
+            [xy: string]: string  // Map of x,y => creepId
+        }
+    }
+    
 }

@@ -62,7 +62,7 @@ namespace Controllers {
             _.forEach(sources, this.generateSourcePaths.bind(this));
         }
         generateSourcePaths(source: Source): void {
-            var harvestPositions = Memory.sources[source.id].harvestPositions;
+            var harvestPositions = source.memory.harvestPositions;
 
             harvestPositions.forEach(pos => {
                 var key = pos.x + ',' + pos.y;
@@ -78,11 +78,19 @@ namespace Controllers {
             // --- Generate paths from the spawn to source;
 
             // return PathFinder.search()
-            return this.spawn.pos.findPathTo(RoomPosition.prototype.clone.call(pos));
+            return this.getSpawningPoint().findPathTo(RoomPosition.prototype.clone.call(pos));
         }
+
+
         // ======================================================= //
         /* ****************** Public Functions ******************* */
         // ======================================================= //
+        getSourcePath(pos: Interfaces.IStoredRoomPosition): string {
+            var key = pos.x + ',' + pos.y;
+
+            return this.spawn.memory.sourcePaths[key];
+        }
+
         loop(): void {
             // console.log(this.roomController.getCreepsWithRole('harvester'));
 
