@@ -27,12 +27,6 @@ namespace Managers {
             creepActions = indexBy<Interfaces.ICreepAction>(temp, a => a.role);
         }
 
-        // function initMemory() {
-        //     if(!Memory.sources) {
-        //         Memory.sources = {};
-        //     }
-        // }
-
         export function globalBootstrap() {
             // Config.log("--- New global. Running globalBootstrap() ---");
             Config.LibraryModifications.globalBootstrap();
@@ -47,7 +41,6 @@ namespace Managers {
             roomControllers = _.map(Game.rooms, room => new Controllers.RoomController(room));
 
             // --- Init memory
-            // initMemory();
         }
 
         export function loop() {
@@ -56,9 +49,8 @@ namespace Managers {
             // --- Update services
             services.forEach(service => service.update());
 
-
             // --- Run controller for each room
-            // roomControllers.forEach(room => room.loop());
+            roomControllers.forEach(room => room.loop());
         }
 
         // ======================================================= //
@@ -82,16 +74,25 @@ namespace Managers {
         }
 
         export function addFlags() {
-
+            
         }
 
         export function mining() {
             var controller = this.roomControllers[0];
+            var spawnController = controller.spawnControllers[0];
             var sources = Services.SourceService.getSourcesInRoom(controller.id);
 
             var source = sources[0];
 
-            var miningPositions = source.pos.getSurroundingWalkablePositions();
+            // var miningPositions = source.pos.getSurroundingWalkablePositions();
+            var harvestPositions = Memory.sources[source.id].harvestPositions;
+
+            harvestPositions.forEach(pos => {
+                var path = spawnController.generatePath(pos);
+                
+                console.log('PATH');
+                console.log(JSON.stringify(path));
+            });
         }
     }
 }

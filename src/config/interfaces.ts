@@ -38,10 +38,15 @@ namespace Interfaces {
         moveTo: boolean;
     }
 
+    export interface IStoredRoomPosition {
+        x: number;
+        y: number;
+        roomName: string;
+    }
 
     export interface ISourceMemory {
         numHaulers: number;
-        miningPositions: RoomPosition[];
+        harvestPositions: IStoredRoomPosition[];
     }
 
     // --- Pass roomId and x,y pos to get id of the assigned harvester

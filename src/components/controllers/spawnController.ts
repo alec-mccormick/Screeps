@@ -32,7 +32,11 @@ namespace Controllers {
 
             this.roomController = roomController;
 
-            // this.generateSourcePaths(Services.SourceService.getAvailableSource(this.spawn.room.name));
+            if(!this.spawn.memory.sourcePaths) {
+                this.spawn.memory.sourcePaths = {};
+            }
+            //this.generateSourcePaths(Services.SourceService.getAvailableSource(this.spawn.room.name));
+            this.generateAllSourcePaths();
         }
 
         // ======================================================= //
@@ -58,13 +62,23 @@ namespace Controllers {
             _.forEach(sources, this.generateSourcePaths.bind(this));
         }
         generateSourcePaths(source: Source): void {
+            var harvestPositions = Memory.sources[source.id].harvestPositions;
+
+            harvestPositions.forEach(pos => {
+                var key = pos.x + ',' + pos.y;
+
+                if(!this.spawn.memory.sourcePaths[key]) {
+                    var path = this.generatePath(pos);
+
+                    this.spawn.memory.sourcePaths[key] = Room.serializePath(path);
+                }
+            });
+        }
+        generatePath(pos: Interfaces.IStoredRoomPosition): PathStep[] {
             // --- Generate paths from the spawn to source;
-            var startPos = this.getSpawningPoint();
 
-            var pathTo = PathFinder.search(startPos, {pos: source.pos, range: 1}).path;
-
-            console.log('PATH TO');
-            Config.logObj(pathTo);
+            // return PathFinder.search()
+            return this.spawn.pos.findPathTo(RoomPosition.prototype.clone.call(pos));
         }
         // ======================================================= //
         /* ****************** Public Functions ******************* */

@@ -115,6 +115,10 @@ namespace Config {
 
         function extendRoomPosition() {
             _.extend(RoomPosition.prototype, {
+                clone: function(): RoomPosition {
+                    return Game.rooms[this.roomName].getPositionAt(this.x, this.y);
+                },
+
                 getSurroundingWalkablePositions: function(): RoomPosition[] {
                     return _.filter<RoomPosition>(this.getSurroundingPositions(), p => p.isWalkable());
                 },

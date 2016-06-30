@@ -20,7 +20,7 @@ namespace Services {
                 if(!Memory.sources[source.id]) {
                     Memory.sources[source.id] = {
                         numHaulers: 1,
-                        miningPositions: source.pos.getSurroundingWalkablePositions()
+                        harvestPositions: source.pos.getSurroundingWalkablePositions()
                     };
                 }
             }));
