@@ -13,6 +13,8 @@ namespace Services {
 
         export function globalBootstrap(): void {
             creeps = Game.creeps;
+            creepsRoomMap = {};
+            creepsRoleMap = {};
         }
 
         export function update(): void {
@@ -22,14 +24,33 @@ namespace Services {
         }
 
         export function getCreepsInRoom(roomId: string): Creep[] {
+            if(!creepsRoomMap[roomId]) {
+                creepsRoomMap[roomId] = [];
+            }
+
             return creepsRoomMap[roomId];
         }
         export function getCreepsRoleMapInRoom(roomId: string): _.Dictionary<Creep[]> {
+            if(!creepsRoleMap[roomId]) {
+                creepsRoleMap[roomId] = {};
+            }
+
             return creepsRoleMap[roomId];
         }
 
         export function getCreepsInRoomWithRole(roomId: string, role: string): Creep[] {
+            if(!creepsRoleMap[roomId]) {
+                creepsRoleMap[roomId] = {};
+            }
+
+            if(!creepsRoleMap[roomId][role]) {
+                creepsRoleMap[roomId][role] = [];
+            }
+
             return creepsRoleMap[roomId][role];
         }
+
+        // export function getAllCreepsWithRole(role: string): _.Dictionary<Creep[]> {
+        // }
     }
 }

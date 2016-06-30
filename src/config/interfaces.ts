@@ -10,8 +10,6 @@ namespace Interfaces {
     }
 
     export interface IController {
-        new(value?: any): IController;
-
         loop(): void;
     }
 
@@ -21,7 +19,6 @@ namespace Interfaces {
     }
 
     export interface IAction {
-
         run(item: any): void;
     }
 
@@ -30,5 +27,27 @@ namespace Interfaces {
         role: string;
 
         run(creep: Creep): void;
+
+        // errorHandlers: _.Dictionary<(c: Creep, err: number, o: IOrder) => void>;
+    }
+
+    export interface IOrder {
+        action: string;
+        targetId?: string;
+        args: any[];
+        moveTo: boolean;
+    }
+
+
+    export interface ISourceMemory {
+        numHaulers: number;
+        miningPositions: RoomPosition[];
+    }
+
+    // --- Pass roomId and x,y pos to get id of the assigned harvester
+    export interface IHarvestAssignments {
+        [roomId: string]: {
+            [xy: string]: string
+        }
     }
 }

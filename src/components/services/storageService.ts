@@ -19,9 +19,24 @@ namespace Services {
 
         }
 
-        export function getSpawnsInRoom(room: string): Spawn[] {
-            return spawnsRoomMap[room];
+        export function getSpawnsInRoom(roomId: string): Spawn[] {
+            return spawnsRoomMap[roomId];
         }
+        export function getDropOffContainer(roomId: string): Spawn | Container {
+            return spawnsRoomMap[roomId][0];
+        }
+
+        // export function getAvailableSpawner(roomId: string, body: string[]): Spawn {
+        //     var spawns = spawnsRoomMap[roomId];
+        //
+        //     for(var i = 0, len = spawns.length; i < len; i++) {
+        //         if(spawns[i].canCreateCreep(body)) {
+        //             return spawns[i];
+        //         }
+        //     }
+        //
+        //     return null;
+        // }
         
     }
 }

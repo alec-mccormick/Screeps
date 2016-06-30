@@ -6,12 +6,13 @@
 
 
 namespace Controllers {
-    export class RoomController {
+    export class RoomController implements Interfaces.IController {
         // ======================================================= //
         /* ********************* Variables *********************** */
         // ======================================================= //
         room: Room;
         id: string;
+        spawnControllers: SpawnController[];
 
         get sources(): Source[] {
             return Services.SourceService.getSourcesInRoom(this.id);
@@ -32,18 +33,35 @@ namespace Controllers {
         constructor(room: Room) {
             this.room = room;
             this.id = room.name;
+
+            this.spawnControllers = this.spawns.map(s => new SpawnController(s, this));
         }
 
         // ======================================================= //
         /* ***************** Private Functions ******************* */
         // ======================================================= //
+        // getAction(creep: Creep): Interfaces.IAction {
+        //     return Managers.GameManager.creepActions[creep.memory.role];
+        // }
 
 
         // ======================================================= //
         /* ****************** Public Functions ******************* */
         // ======================================================= //
         loop(): void {
+            _.invoke(this.spawnControllers, 'loop');
+            
+            _.forEach(this.creeps, c => {
+                if(!c.spawning) {
+                    c.run();
+                }
+            })
+        }
 
+        getCreepsWithRole(role: string): Creep[] {
+            // console.log('get creeps', role, this.id);
+
+            return Services.CreepService.getCreepsInRoomWithRole(this.id, role);
         }
 
         // ======================================================= //
